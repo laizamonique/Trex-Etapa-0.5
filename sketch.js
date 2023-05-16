@@ -1,8 +1,9 @@
-var trex, trex_running, edges;
-var groundImage;
+var trex, trex_running, trex_running;
+var groundImage, invisibleGround, groundimage;
 
 function preload(){
   trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
+  trex_collided = loadimage("trex_collided.png");
   groundImage = loadImage("ground2.png")
 }
 
@@ -18,12 +19,16 @@ function setup(){
   trex.scale = 0.5;
   trex.x = 50
 }
-
-
+  ground = createSprite(200,180,400,20);
+  ground.addimage("ground",GROUNDIMAGE);
+  ground.x = ground.width /2;
 function draw(){
   //definir a cor do plano de fundo 
   background("white");
-  
+  ground.velocityx = -2;
+  if (ground.x<0){
+    ground.x - ground.width/2;
+  }
   //registrando a posição y do trex
   console.log(trex.y)
   
@@ -35,6 +40,6 @@ function draw(){
   trex.velocityY = trex.velocityY + 0.5;
   
  //impedir que o trex caia
-  trex.collide(edges[3])
+  trex.collide(ground)
   drawSprites();
 }
